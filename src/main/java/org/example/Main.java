@@ -2,6 +2,7 @@ package org.example;
 
 import com.google.gson.Gson;
 import org.example.Client.ActiveClient;
+import org.example.DTO.Enum.Type;
 
 import java.util.ArrayList;
 
@@ -12,11 +13,8 @@ public class Main {
         var client = new ActiveClient();
 
         var gson = new Gson();
-        var result = client.getTicketQuote(new ArrayList<>(){{
-            add("PETR4");
-        }},null,null,new ArrayList<>(){{
-            add("summaryProfile");
-        }},null,null,null,null);
+
+        var result = client.getQuoteList(null,null,null,10,1,Type.BDR,null);
         var json = gson.toJson(result);
 
         System.out.println(json);

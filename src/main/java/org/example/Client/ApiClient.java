@@ -1,7 +1,9 @@
 package org.example.Client;
 
+import com.google.gson.Gson;
 import lombok.Data;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -18,6 +20,15 @@ public class ApiClient {
         this.client = HttpClient.newHttpClient();
         this.request = HttpRequest.newBuilder()
                 .uri(URI.create(mainPath + endPoint))
+                .header("Authorization","Bearer m2HTrpmjYr7LpRHBVy5goV")
+                .GET()
+                .build();
+    }
+
+    public ApiClient(EndPointBuilder endPoint) {
+        this.client = HttpClient.newHttpClient();
+        this.request = HttpRequest.newBuilder()
+                .uri(URI.create(mainPath + endPoint.getEndPoint()))
                 .header("Authorization","Bearer m2HTrpmjYr7LpRHBVy5goV")
                 .GET()
                 .build();
@@ -40,5 +51,18 @@ public class ApiClient {
             throw new RuntimeException("Rota não encontrada");
         }
 
+    }
+    public static <T> T send(EndPointBuilder builder ,Class<T> t) {
+        try{
+            var api = new ApiClient(builder.getEndPoint());
+            var response = api.getClient().send(api.getRequest(),HttpResponse.BodyHandlers.ofString());
+            api.verifyStatusCode(response);
+            Gson gson = new Gson();
+            return gson.fromJson(response.body(),t);
+        }catch (RuntimeException ex) {
+            throw new RuntimeException(ex.getMessage());
+        } catch (Throwable ex) {
+            throw new RuntimeException("Erro indefinido na requisição");
+        }
     }
 }

@@ -4,17 +4,20 @@ package org.example.Client;
 import com.google.gson.Gson;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.example.DTO.Enum.Sector;
+import org.example.DTO.Enum.Type;
 import org.example.DTO.Enum.TypeInterval;
 import org.example.DTO.ResponseQuote;
-import org.example.DTO.ResultQuote;
+import org.example.DTO.ResponseQuoteAvailable;
+import org.example.DTO.ResponseQuoteList;
 
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ActiveClient {
 
-    public ArrayList<ResultQuote> getTicketQuote(List<String> tickers ,Boolean dividends ,Boolean fundamental ,List<String> modules ,Integer range ,Integer interval ,TypeInterval rangeType ,TypeInterval intervalType) {
+    public ResponseQuote getTicketQuote(List<String> tickers ,Boolean dividends ,Boolean fundamental ,List<String> modules ,Integer range ,Integer interval ,TypeInterval rangeType ,TypeInterval intervalType) {
         EndPointBuilder builder = EndPointBuilder.create("/quote/" + tickers.toString().replace("[" ,"").replace("]" ,""));
         ResponseQuote responseQuote = null;
         if (BooleanUtils.isTrue(dividends)) {
@@ -47,18 +50,50 @@ public class ActiveClient {
             builder.addParam(interval + intervalType.interval);
         }
 
-        var client = new ApiClient(builder.getEndPoint());
-        try {
-            HttpResponse<String> response = client.getClient().send(client.getRequest() ,HttpResponse.BodyHandlers.ofString());
-            client.verifyStatusCode(response);
-            var gson = new Gson();
-            responseQuote = gson.fromJson(response.body() ,ResponseQuote.class);
-        } catch (Exception ex) {
-            throw new RuntimeException(ex.getMessage());
-        } catch (Throwable ex) {
-            throw new RuntimeException("Erro indefinido na requisição");
+        return ApiClient.send(builder ,ResponseQuote.class);
+    }
+
+    public ResponseQuoteList getQuoteList(String search ,String sortBy ,String sortOrder ,Integer limit ,Integer page ,Type type ,Sector sector) {
+        EndPointBuilder builder = EndPointBuilder.create("/quote/list");
+
+        if (search != null && !StringUtils.isEmpty(search)) {
+            builder.addParam("search=" + search);
         }
-        return responseQuote.getResults();
+
+        if (sortBy != null && !StringUtils.isEmpty(sortBy)) {
+            builder.addParam("sortBy=" + sortBy);
+        }
+
+        if (sortOrder != null && !StringUtils.isEmpty(sortOrder)) {
+            builder.addParam("sortOrder=" + sortOrder);
+        }
+
+        if (limit != null) {
+            builder.addParam("limit=" + limit);
+        }
+
+        if (page != null) {
+            builder.addParam("page=" + page);
+        }
+
+        if (type != null) {
+            builder.addParam("type=" + type.type);
+        }
+
+        if (sector != null) {
+            builder.addParam("sector=" + sector.sector);
+        }
+
+        return ApiClient.send(builder ,ResponseQuoteList.class);
+    }
+
+    public ResponseQuoteAvailable GetAvaible(String search) {
+        EndPointBuilder endPoint = EndPointBuilder.create("/available");
+        if (search != null) {
+            endPoint.addParam("search=" + search);
+        }
+
+        return ApiClient.send(endPoint,ResponseQuoteAvailable.class);
     }
 
     private void addModulesToParam(List<String> modules ,EndPointBuilder builder) {
