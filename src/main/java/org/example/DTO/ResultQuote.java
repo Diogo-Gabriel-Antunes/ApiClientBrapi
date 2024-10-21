@@ -2,7 +2,16 @@ package org.example.DTO;
 
 import java.util.ArrayList;
 
-public class ResultQuote{
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@JsonSerialize
+@Builder
+public class ResultQuote {
     private String symbol;
     private String currency;
     private double twoHundredDayAverage;

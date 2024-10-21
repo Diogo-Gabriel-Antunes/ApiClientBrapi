@@ -1,10 +1,17 @@
 package org.example.DTO;
 
-import lombok.Data;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.Builder;
 
 import java.util.ArrayList;
 
-@Data
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@JsonSerialize
+@Builder
 public class SummaryProfile {
     private String address1;
     private String address2;

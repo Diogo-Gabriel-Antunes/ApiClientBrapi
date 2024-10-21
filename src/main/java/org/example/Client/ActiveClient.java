@@ -32,7 +32,7 @@ public class ActiveClient {
             builder.addParam("fundamental=false");
         }
 
-        if (ArrayUtils.isNotEmpty(modules.toArray())) {
+        if (modules != null && ArrayUtils.isNotEmpty(modules.toArray())) {
             addModulesToParam(modules ,builder);
         }
 

@@ -1,11 +1,20 @@
 package org.example.DTO;
 
-import lombok.Data;
 
 import java.util.Date;
 
 
-@Data
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.Builder;
+
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@JsonSerialize
+@Builder
 public class DefaultKeyStatistics {
     private int priceHint;
     private long enterpriseValue;

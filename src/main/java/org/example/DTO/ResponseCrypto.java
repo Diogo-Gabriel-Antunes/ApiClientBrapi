@@ -1,4 +1,20 @@
 package org.example.DTO;
 
-public class ResponseCrypto {
+
+import java.util.ArrayList;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.Builder;
+
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@JsonSerialize
+@Builder
+public class ResponseCrypto{
+    private ArrayList<Coin> coins;
 }
+
+

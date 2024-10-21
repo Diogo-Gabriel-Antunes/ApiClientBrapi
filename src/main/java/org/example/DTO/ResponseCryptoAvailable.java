@@ -1,11 +1,19 @@
 package org.example.DTO;
 
-import lombok.Data;
 
 import java.util.List;
 
-@Data
-public class ResponseCoinAvailable {
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.Builder;
 
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@JsonSerialize
+@Builder
+public class ResponseCryptoAvailable {
     private List<String> coins;
 }

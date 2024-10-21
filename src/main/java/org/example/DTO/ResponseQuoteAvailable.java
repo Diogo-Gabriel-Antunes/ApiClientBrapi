@@ -1,10 +1,18 @@
 package org.example.DTO;
 
-import lombok.Data;
-
 import java.util.List;
 
-@Data
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.Builder;
+
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@JsonSerialize
+@Builder
 public class ResponseQuoteAvailable {
     private List<String> indexes;
     private List<String> stocks;

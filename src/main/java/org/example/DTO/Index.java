@@ -1,8 +1,16 @@
 package org.example.DTO;
 
-import lombok.Data;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.Builder;
 
-@Data
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@JsonSerialize
+@Builder
 public class Index {
     private String stock;
     private String name;

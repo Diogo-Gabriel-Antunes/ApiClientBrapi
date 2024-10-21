@@ -4,8 +4,17 @@ import lombok.Data;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.Builder;
 
-@Data
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@JsonSerialize
+@Builder
 public class IncomeStatementHistory {
     private Date endDate;
     private long totalRevenue;

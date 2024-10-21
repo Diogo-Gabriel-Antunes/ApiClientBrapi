@@ -1,8 +1,17 @@
 package org.example.DTO;
 
-import lombok.Data;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-@Data
+import lombok.Builder;
+
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@JsonSerialize
+@Builder
 public class HistoricalDataPrice{
     private int date;
     private double myopen;

@@ -3,18 +3,26 @@ package org.example.Client;
 import com.google.gson.Gson;
 import lombok.Data;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import org.example.Client.ApiClient;
 
-@Data
+
 public class ApiClient {
 
     private final String mainPath = "https://brapi.dev/api";
     private HttpClient client;
     private HttpRequest request;
+
+    public HttpClient getClient() {
+        return client;
+    }
+
+    public HttpRequest getRequest() {
+        return request;
+    }
 
     public ApiClient(String endPoint) {
         this.client = HttpClient.newHttpClient();
@@ -54,7 +62,7 @@ public class ApiClient {
     }
     public static <T> T send(EndPointBuilder builder ,Class<T> t) {
         try{
-            var api = new ApiClient(builder.getEndPoint());
+            ApiClient api = new ApiClient(builder.getEndPoint());
             var response = api.getClient().send(api.getRequest(),HttpResponse.BodyHandlers.ofString());
             api.verifyStatusCode(response);
             Gson gson = new Gson();

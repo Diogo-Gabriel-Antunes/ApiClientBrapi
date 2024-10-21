@@ -1,17 +1,32 @@
 package org.example.Client;
 
-import org.example.DTO.ResponseCoin;
+import org.example.DTO.ResponseCryptoAvailable;
 
-public class CoinClient {
+import java.util.List;
 
+public class CryptoClient {
+    public ResponseCryptoAvailable GetCryptoAvailable(String search) {
+        EndPointBuilder builder = EndPointBuilder.create("/v2/crypto/available");
 
-    public ResponseCoin GetCoinsAvailable(String search){
-        EndPointBuilder builder = new EndPointBuilder();
-
-        if(search != null && !search.isEmpty()){
+        if (search != null && !search.isEmpty()) {
             builder.addParam("search=" + search);
         }
 
-        return ApiClient.send(builder,ResponseCoin.class);
+        return ApiClient.send(builder ,ResponseCryptoAvailable.class);
+    }
+
+
+    public ResponseCryptoAvailable GetCrypto(List<String> coin,String currency) {
+        EndPointBuilder builder = EndPointBuilder.create("/v2/crypto");
+
+        if (coin != null && !coin.isEmpty()) {
+            builder.addParam("coin=" + coin.toString().replace("[" ,"").replace("]" ,""));
+        }
+
+        if(currency != null && !currency.isEmpty()){
+            builder.addParam("currency=" + currency);
+        }
+
+        return ApiClient.send(builder ,ResponseCryptoAvailable.class);
     }
 }

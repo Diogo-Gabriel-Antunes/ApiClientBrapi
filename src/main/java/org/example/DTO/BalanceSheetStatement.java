@@ -1,10 +1,19 @@
 package org.example.DTO;
 
-import lombok.Data;
 
 import java.util.Date;
 
-@Data
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.Builder;
+
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@JsonSerialize
+@Builder
 public class BalanceSheetStatement {
     private Date endDate;
     private long cash;
