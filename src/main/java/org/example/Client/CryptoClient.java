@@ -1,5 +1,6 @@
 package org.example.Client;
 
+import org.example.DTO.ResponseCrypto;
 import org.example.DTO.ResponseCryptoAvailable;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class CryptoClient {
     }
 
 
-    public ResponseCryptoAvailable GetCrypto(List<String> coin,String currency) {
+    public ResponseCrypto GetCrypto(List<String> coin,String currency) {
         EndPointBuilder builder = EndPointBuilder.create("/v2/crypto");
 
         if (coin != null && !coin.isEmpty()) {
@@ -27,6 +28,6 @@ public class CryptoClient {
             builder.addParam("currency=" + currency);
         }
 
-        return ApiClient.send(builder ,ResponseCryptoAvailable.class);
+        return ApiClient.send(builder ,ResponseCrypto.class);
     }
 }

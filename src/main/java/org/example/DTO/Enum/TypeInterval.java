@@ -1,6 +1,5 @@
 package org.example.DTO.Enum;
 
-import lombok.Data;
 
 public enum TypeInterval {
     M("m"),H("h"),D("d"),WK("wk"),MO("mo");

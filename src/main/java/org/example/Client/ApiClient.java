@@ -1,7 +1,6 @@
 package org.example.Client;
 
 import com.google.gson.Gson;
-import lombok.Data;
 
 import java.net.URI;
 import java.net.http.HttpClient;

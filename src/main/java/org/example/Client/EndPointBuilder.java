@@ -1,10 +1,8 @@
 package org.example.Client;
 
-import lombok.Data;
 
 import java.util.ArrayList;
 
-@Data
 public class EndPointBuilder {
 
     private StringBuilder endPoint = new StringBuilder();

@@ -3,18 +3,20 @@ package org.example.DTO;
 
 import java.util.ArrayList;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import lombok.Builder;
 
 
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
 @JsonSerialize
-@Builder
 public class ResponseCrypto{
     private ArrayList<Coin> coins;
+
+    public ArrayList<Coin> getCoins() {
+        return coins;
+    }
+
+    public void setCoins(ArrayList<Coin> coins) {
+        this.coins = coins;
+    }
 }
 
 
